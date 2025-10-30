@@ -4,7 +4,7 @@ import "time"
 
 // SimulatedFlightData holds the current flight data of a single aircraft
 type SimulatedFlightData struct {
-	FlightID      int
+	FlightID      string
 	FlightNumber  string
 	Airline       string
 	Latitude      float64
