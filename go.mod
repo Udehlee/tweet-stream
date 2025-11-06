@@ -1,4 +1,4 @@
-module github.com/Udehlee/aero-stream
+module github.com/Udehlee/tweet-stream
 
 go 1.23.4
 
