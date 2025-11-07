@@ -26,12 +26,9 @@ func NewTweetService(logger *zerolog.Logger) *TweetService {
 	return Ts
 }
 
-// PostTweet posts a single tweet
-func (ts *TweetService) PostTweet(msg string) (*models.Tweet, error) {
-	ts.mu.Lock()
-	defer ts.mu.Unlock()
-
-	id := utils.GenerateID()
+// CreateUser create user
+// and assigns verification status
+func (ts *TweetService) CreateUser() (*models.User, error) {
 	name := utils.GenerateUser()
 	status := ts.isVerifiedOrNot()
 
@@ -39,6 +36,20 @@ func (ts *TweetService) PostTweet(msg string) (*models.Tweet, error) {
 		UserID: utils.GenerateID(),
 		Name:   name,
 		Status: status,
+	}
+
+	return user, nil
+}
+
+// PostTweet posts a single tweet
+func (ts *TweetService) PostTweet(msg string) (*models.Tweet, error) {
+	ts.mu.Lock()
+	defer ts.mu.Unlock()
+
+	id := utils.GenerateID()
+	user, err := ts.CreateUser()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create user: %v", err)
 	}
 
 	tweet := &models.Tweet{
