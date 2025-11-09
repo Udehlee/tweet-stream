@@ -7,6 +7,7 @@ type Tweet struct {
 	ID        string
 	User      *User
 	Message   string
+	HashTag   []string
 	Reactions []Reaction
 	Comments  []Comment
 	UpdatedAt time.Time
@@ -32,4 +33,8 @@ type Comment struct {
 	User     *User
 	Content  string
 	PostedAt time.Time
+}
+
+type Quote struct {
+	Content string `json:"content"`
 }
