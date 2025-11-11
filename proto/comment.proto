@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package comment;
+
+option go_package = "github.com/Udehlee/tweet-stream/pb";
+
+import "user.proto";
+import "google/protobuf/timestamp.proto";
+
+message Comment {
+  user.User user = 1;
+  string content = 2;
+  google.protobuf.Timestamp posted_at = 3;
+}

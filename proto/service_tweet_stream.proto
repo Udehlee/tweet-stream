@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package grpc;
+
+option go_package = "github.com/Udehlee/tweet-stream/pb";
+
+import "tweet.proto";
+
+message Empty {}
+
+service UserService {
+  rpc StreamTweets(Empty) returns (stream tweet.Tweet);
+}

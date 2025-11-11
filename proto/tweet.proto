@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package tweet;
+
+option go_package = "github.com/Udehlee/tweet-stream/pb";
+
+import "user.proto";
+import "comment.proto";
+import "reaction.proto";
+import "google/protobuf/timestamp.proto";
+
+message Tweet {
+  string id = 1;
+  user.User user = 2;
+  string message = 3;
+  repeated string hashtags = 4;
+  repeated reaction.Reaction reactions = 5;
+  repeated comment.Comment comments = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}

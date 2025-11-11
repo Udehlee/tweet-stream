@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package reaction;
+
+option go_package = "github.com/Udehlee/tweet-stream/pb";
+
+import "user.proto";
+
+message Reaction {
+  user.User user = 1;
+  string reaction_type = 2;
+  int32 count = 3;
+}

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/Udehlee/tweet-stream/pb";
+
+message User {
+  string user_id = 1;
+  string name = 2;
+  string status = 3; 
+}
