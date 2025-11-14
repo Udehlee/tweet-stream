@@ -8,6 +8,6 @@ import "tweet.proto";
 
 message Empty {}
 
-service UserService {
+service TweetService {
   rpc StreamTweets(Empty) returns (stream tweet.Tweet);
 }
