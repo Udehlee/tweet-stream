@@ -19,27 +19,27 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_StreamTweets_FullMethodName = "/grpc.UserService/StreamTweets"
+	TweetService_StreamTweets_FullMethodName = "/grpc.TweetService/StreamTweets"
 )
 
-// UserServiceClient is the client API for UserService service.
+// TweetServiceClient is the client API for TweetService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type UserServiceClient interface {
+type TweetServiceClient interface {
 	StreamTweets(ctx context.Context, in *Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Tweet], error)
 }
 
-type userServiceClient struct {
+type tweetServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
-	return &userServiceClient{cc}
+func NewTweetServiceClient(cc grpc.ClientConnInterface) TweetServiceClient {
+	return &tweetServiceClient{cc}
 }
 
-func (c *userServiceClient) StreamTweets(ctx context.Context, in *Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Tweet], error) {
+func (c *tweetServiceClient) StreamTweets(ctx context.Context, in *Empty, opts ...grpc.CallOption) (grpc.ServerStreamingClient[Tweet], error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &UserService_ServiceDesc.Streams[0], UserService_StreamTweets_FullMethodName, cOpts...)
+	stream, err := c.cc.NewStream(ctx, &TweetService_ServiceDesc.Streams[0], TweetService_StreamTweets_FullMethodName, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -54,69 +54,69 @@ func (c *userServiceClient) StreamTweets(ctx context.Context, in *Empty, opts ..
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type UserService_StreamTweetsClient = grpc.ServerStreamingClient[Tweet]
+type TweetService_StreamTweetsClient = grpc.ServerStreamingClient[Tweet]
 
-// UserServiceServer is the server API for UserService service.
-// All implementations must embed UnimplementedUserServiceServer
+// TweetServiceServer is the server API for TweetService service.
+// All implementations must embed UnimplementedTweetServiceServer
 // for forward compatibility.
-type UserServiceServer interface {
+type TweetServiceServer interface {
 	StreamTweets(*Empty, grpc.ServerStreamingServer[Tweet]) error
-	mustEmbedUnimplementedUserServiceServer()
+	mustEmbedUnimplementedTweetServiceServer()
 }
 
-// UnimplementedUserServiceServer must be embedded to have
+// UnimplementedTweetServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedUserServiceServer struct{}
+type UnimplementedTweetServiceServer struct{}
 
-func (UnimplementedUserServiceServer) StreamTweets(*Empty, grpc.ServerStreamingServer[Tweet]) error {
+func (UnimplementedTweetServiceServer) StreamTweets(*Empty, grpc.ServerStreamingServer[Tweet]) error {
 	return status.Errorf(codes.Unimplemented, "method StreamTweets not implemented")
 }
-func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
-func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
+func (UnimplementedTweetServiceServer) mustEmbedUnimplementedTweetServiceServer() {}
+func (UnimplementedTweetServiceServer) testEmbeddedByValue()                      {}
 
-// UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to UserServiceServer will
+// UnsafeTweetServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TweetServiceServer will
 // result in compilation errors.
-type UnsafeUserServiceServer interface {
-	mustEmbedUnimplementedUserServiceServer()
+type UnsafeTweetServiceServer interface {
+	mustEmbedUnimplementedTweetServiceServer()
 }
 
-func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
-	// If the following call pancis, it indicates UnimplementedUserServiceServer was
+func RegisterTweetServiceServer(s grpc.ServiceRegistrar, srv TweetServiceServer) {
+	// If the following call pancis, it indicates UnimplementedTweetServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&UserService_ServiceDesc, srv)
+	s.RegisterService(&TweetService_ServiceDesc, srv)
 }
 
-func _UserService_StreamTweets_Handler(srv interface{}, stream grpc.ServerStream) error {
+func _TweetService_StreamTweets_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(UserServiceServer).StreamTweets(m, &grpc.GenericServerStream[Empty, Tweet]{ServerStream: stream})
+	return srv.(TweetServiceServer).StreamTweets(m, &grpc.GenericServerStream[Empty, Tweet]{ServerStream: stream})
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
-type UserService_StreamTweetsServer = grpc.ServerStreamingServer[Tweet]
+type TweetService_StreamTweetsServer = grpc.ServerStreamingServer[Tweet]
 
-// UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
+// TweetService_ServiceDesc is the grpc.ServiceDesc for TweetService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var UserService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc.UserService",
-	HandlerType: (*UserServiceServer)(nil),
+var TweetService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "grpc.TweetService",
+	HandlerType: (*TweetServiceServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "StreamTweets",
-			Handler:       _UserService_StreamTweets_Handler,
+			Handler:       _TweetService_StreamTweets_Handler,
 			ServerStreams: true,
 		},
 	},

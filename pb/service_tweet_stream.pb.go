@@ -62,8 +62,8 @@ var File_service_tweet_stream_proto protoreflect.FileDescriptor
 const file_service_tweet_stream_proto_rawDesc = "" +
 	"\n" +
 	"\x1aservice_tweet_stream.proto\x12\x04grpc\x1a\vtweet.proto\"\a\n" +
-	"\x05Empty2:\n" +
-	"\vUserService\x12+\n" +
+	"\x05Empty2;\n" +
+	"\fTweetService\x12+\n" +
 	"\fStreamTweets\x12\v.grpc.Empty\x1a\f.tweet.Tweet0\x01B$Z\"github.com/Udehlee/tweet-stream/pbb\x06proto3"
 
 var (
@@ -84,8 +84,8 @@ var file_service_tweet_stream_proto_goTypes = []any{
 	(*Tweet)(nil), // 1: tweet.Tweet
 }
 var file_service_tweet_stream_proto_depIdxs = []int32{
-	0, // 0: grpc.UserService.StreamTweets:input_type -> grpc.Empty
-	1, // 1: grpc.UserService.StreamTweets:output_type -> tweet.Tweet
+	0, // 0: grpc.TweetService.StreamTweets:input_type -> grpc.Empty
+	1, // 1: grpc.TweetService.StreamTweets:output_type -> tweet.Tweet
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
