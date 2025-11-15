@@ -52,14 +52,12 @@ func (gs *GeneratorService) PostTweet(ctx context.Context) {
 		return
 	}
 
-	hashTag := gs.tweetSvc.GeneateHashTags(msg)
+	hashTag := gs.tweetSvc.GenerateHashTags(msg)
 	tweet.Message = fmt.Sprintf("%s\n %s", tweet.Message, hashTag)
-	TweetEvt := tweetEvent{
-		Type:  "create",
-		Tweet: tweet,
-	}
 
-	gs.tweetsChan <- TweetEvt
+	create := gs.CreateTweetEvent("create", tweet)
+
+	gs.tweetsChan <- create
 	gs.logger.Info().Msgf("New tweet posted %s", tweet.Message)
 }
 
@@ -81,12 +79,9 @@ func (gs *GeneratorService) UpdateRandomTweet(ctx context.Context) {
 		return
 	}
 
-	TweetEvt := tweetEvent{
-		Type:  "update",
-		Tweet: tweet,
-	}
+	update := gs.CreateTweetEvent("update", tweet)
 
-	gs.tweetsChan <- TweetEvt
+	gs.tweetsChan <- update
 	gs.logger.Info().Msgf("Tweet updated %s", msg)
 }
 
@@ -103,16 +98,23 @@ func (gs *GeneratorService) DeleteRandomTweet(ctx context.Context) {
 		return
 	}
 
-	TweetEvt := tweetEvent{
-		Type:  "delete",
-		Tweet: tweet,
-	}
+	delete := gs.CreateTweetEvent("delete", tweet)
 
-	gs.tweetsChan <- TweetEvt
+	gs.tweetsChan <- delete
 	gs.logger.Info().Msgf("Tweet deleted %s", tweet.ID)
 }
 
-// GenerateTweets generates random tweet operations at intervals
+// CreateTweetEvent creates a tweet Event with the given type and tweet payload.
+func (gs *GeneratorService) CreateTweetEvent(eventType string, tweet *models.Tweet) tweetEvent {
+	TweetEvt := tweetEvent{
+		Type:  eventType,
+		Tweet: tweet,
+	}
+
+	return TweetEvt
+}
+
+// GenerateTweets generates random fake tweet operations at intervals
 func (gs *GeneratorService) GenerateTweets(ctx context.Context, interval time.Duration) {
 	ticker := time.NewTicker(interval)
 
