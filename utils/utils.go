@@ -4,6 +4,7 @@ import (
 	"math/rand"
 	"strings"
 
+	"github.com/Udehlee/tweet-stream/models"
 	"github.com/google/uuid"
 )
 
@@ -19,4 +20,13 @@ func GenerateID() string {
 	id := uuid.New()
 	firstSix := id.String()[:6]
 	return strings.ToUpper(firstSix)
+}
+
+// ExtractHashtags
+func ExtractHashtags(list []models.HashtagCount) []string {
+	result := make([]string, len(list))
+	for i, h := range list {
+		result[i] = h.Tag
+	}
+	return result
 }
