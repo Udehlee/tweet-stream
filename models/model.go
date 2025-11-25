@@ -38,3 +38,26 @@ type Comment struct {
 type Quote struct {
 	Content string `json:"content"`
 }
+
+// WindowMetrics holds all calculated results for a single time window
+type WindowMetrics struct {
+	WindowStart      time.Time
+	WindowEnd        time.Time
+	TotalTweets      int
+	TrendingHashtags []HashtagCount
+	TotalEngagement  int
+	VerifiedCount    int
+	UnverifiedCount  int
+
+	// Latency Metrics
+	AvgLatency time.Duration
+	MaxLatency time.Duration
+	MinLatency time.Duration
+
+	IsAnomaly bool
+}
+
+type HashtagCount struct {
+	Tag   string
+	Count int
+}
