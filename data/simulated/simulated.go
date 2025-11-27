@@ -118,23 +118,22 @@ func (ts *TweetService) GetTweet() *models.Tweet {
 }
 
 // GenerateHashTags generates hashtags from tweet
-func (ts *TweetService) GeneateHashTags(msg string) string {
+func (ts *TweetService) GenerateHashTags(msg string) []string {
 	var tags []string
 	words := strings.Fields(msg)
 
 	for _, w := range words {
-		if len(w) > 5 {
-			tags = append(tags, "#"+strings.Trim(w, ".,!?"))
+		trimmed := strings.Trim(w, ".,!?")
+		if len(trimmed) > 5 {
+			tags = append(tags, "#"+trimmed)
 		}
 
-		if len(tags) >= 2 {
+		if len(tags) > 5 {
 			break
 		}
 	}
 
-	hashTag := strings.Join(tags, "")
-	return hashTag
-
+	return tags
 }
 
 // isVerifiedOrNot assigns verified or unverified  to user
