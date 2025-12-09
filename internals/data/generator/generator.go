@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Udehlee/tweet-stream/data/client"
-	"github.com/Udehlee/tweet-stream/data/simulated"
+	"github.com/Udehlee/tweet-stream/internals/data/client"
+	"github.com/Udehlee/tweet-stream/internals/data/simulated"
 	"github.com/Udehlee/tweet-stream/models"
 	"github.com/rs/zerolog"
 )
@@ -92,13 +92,13 @@ func (gs *GeneratorService) DeleteRandomTweet(ctx context.Context) {
 	gs.logger.Info().Msgf("Tweet deleted %s", tweet.ID)
 }
 
-// PiblishTweet publishes tweet to gRPC
-func (gs *GeneratorService) publishTweet(t *models.Tweet) {
+// PublishTweet publishes tweet to gRPC
+func (gs *GeneratorService) publishTweet(tweet *models.Tweet) {
 	if gs.Publish == nil {
 		return
 	}
 	select {
-	case gs.Publish <- t:
+	case gs.Publish <- tweet:
 	default:
 		gs.logger.Info().Msg("publish channel full, dropped tweet")
 	}
