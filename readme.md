@@ -1,1 +1,2 @@
 ## tweet-stream
+tweet-stream is a real-time event-driven tweet simulation system built with Go and gRPC. It generates simulated tweets, streams them continuously, and stores analytics in InfluxDB for visualization and monitoring using Grafana.
